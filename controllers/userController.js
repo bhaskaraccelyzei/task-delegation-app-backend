@@ -30,3 +30,19 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    // Only admin should see all users
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Only admin can view users' });
+    }
+
+    const users = await User.find().select('-password'); // Hide password
+
+    res.json({ users });
+  } catch (error) {
+    console.error('Get Users Error:', error.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

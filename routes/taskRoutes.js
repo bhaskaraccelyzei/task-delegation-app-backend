@@ -200,7 +200,6 @@ router.patch('/:id/status', authMiddleware, updateTaskStatus);
  *         description: Task not found
  */
 
-
 router.delete('/:id', authMiddleware, deleteTask);
 
 
